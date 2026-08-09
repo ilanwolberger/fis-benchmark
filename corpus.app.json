@@ -1,0 +1,27 @@
+{
+  "mode": "clean",
+  "description": "Application-FCR corpus: mature, widely-DEPLOYED open-source web APPLICATIONS at their maintained default branch (not libraries, not deliberately-vulnerable training apps). These are real production codebases that SHOULD audit green-ish. The honest caveat vs the library corpus: a full app legitimately carries more surface, so a 'critical' here may be REAL, not a false alarm — each not-green is a candidate-false-alarm for TRIAGE, never auto-exonerated. Diverse stacks (Node/Next.js, Go, Python/Django, Ruby/Rails, PHP, Elixir).",
+  "metric": "application false-critical rate (clean-pass on deployed apps)",
+  "repos": [
+    { "repo": "TryGhost/Ghost", "lang": "node", "note": "Express CMS / publishing platform" },
+    { "repo": "strapi/strapi", "lang": "node", "note": "headless CMS" },
+    { "repo": "n8n-io/n8n", "lang": "node", "note": "workflow automation" },
+    { "repo": "calcom/cal.com", "lang": "node", "note": "Next.js scheduling" },
+    { "repo": "directus/directus", "lang": "node", "note": "headless CMS / data platform" },
+    { "repo": "medusajs/medusa", "lang": "node", "note": "e-commerce backend" },
+    { "repo": "documenso/documenso", "lang": "node", "note": "Next.js e-signing" },
+    { "repo": "formbricks/formbricks", "lang": "node", "note": "Next.js surveys" },
+    { "repo": "twentyhq/twenty", "lang": "node", "note": "Next.js CRM" },
+    { "repo": "go-gitea/gitea", "lang": "go", "note": "self-hosted git service" },
+    { "repo": "mattermost/mattermost", "lang": "go", "note": "Go + React team chat" },
+    { "repo": "saleor/saleor", "lang": "python", "note": "Django e-commerce" },
+    { "repo": "getredash/redash", "lang": "python", "note": "Flask + React BI" },
+    { "repo": "PostHog/posthog", "lang": "python", "note": "Django + React product analytics" },
+    { "repo": "discourse/discourse", "lang": "ruby", "note": "Rails forum" },
+    { "repo": "mastodon/mastodon", "lang": "ruby", "note": "Rails federated social" },
+    { "repo": "appwrite/appwrite", "lang": "php", "note": "PHP backend-as-a-service" },
+    { "repo": "nextcloud/server", "lang": "php", "note": "PHP self-hosted cloud" },
+    { "repo": "plausible/analytics", "lang": "elixir", "note": "Phoenix web analytics" },
+    { "repo": "metabase/metabase", "lang": "clojure", "note": "Clojure + JS BI" }
+  ]
+}

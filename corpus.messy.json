@@ -1,0 +1,21 @@
+{
+  "mode": "field",
+  "description": "Field-test corpus — NO ground truth, NOT a benchmark. corpus.clean.json (mature libraries) and corpus.vuln.json (intentionally-vulnerable training apps) both carry a known label, so 'false critical' and 'miss' are meaningful metrics on them. These three repos carry no such label: they are large, genuinely complicated, real-world production codebases with no vulnerability annotation and no prior expectation of a 'should audit green' verdict. FCR/recall/detection-rate language does NOT apply — a not-green verdict here is not a false alarm and a green verdict is not a miss; we simply do not know the ground truth. What this tier tests instead is BEHAVIOR: pointed at code this large, this old, and this accreted, are fis's verdicts, scores, and findings sane, proportionate, and useful — or does it choke, hallucinate, or cry wolf on ordinary complexity? Selection criteria: very large (thousands of files), long multi-contributor history, mixed generations of code / real accumulated complexity, actively used in production, written in a fis-supported language (JS/TS, Python, Go, Rust — NOT PHP/Ruby, which fis does not formally support), publicly fetchable on GitHub, and absent from corpus.clean.json / corpus.app.json / corpus.vuln.json (checked against all three before freezing this list). Candidates evaluated: getsentry/sentry, elastic/kibana, openedx/edx-platform, odoo/odoo, home-assistant/core, grafana/grafana — all six pass the criteria; the three below were kept for stack diversity (Python+TS, pure Python, Go+TS) rather than clustering on TS monorepos (kibana would have overlapped sentry/grafana's frontend stack) or a second all-Python pick (odoo/edx-platform would have overlapped home-assistant).",
+  "repos": [
+    {
+      "repo": "getsentry/sentry",
+      "lang": "py+ts",
+      "note": "Chosen over kibana/odoo for stack diversity: a Python/Django backend plus a large React/TS frontend in one monorepo. 15+ years of history, hundreds of contributors, tens of thousands of files, in continuous production use as the error-tracking SaaS it also ships. Mixed-generation code: old Django ORM patterns sitting alongside modern TS/React — the accreted-complexity shape this tier targets."
+    },
+    {
+      "repo": "home-assistant/core",
+      "lang": "py",
+      "note": "Chosen over odoo/edx-platform for scale-via-accretion: thousands of near-independently-contributed integration modules (one per smart-home vendor/protocol) added over a decade by a huge, loosely-coordinated contributor base — a distinct complexity shape from sentry's single coherent product (breadth of many small, uneven-quality modules vs. depth of one). Actively deployed in production homes worldwide."
+    },
+    {
+      "repo": "grafana/grafana",
+      "lang": "go+ts",
+      "note": "Chosen over kibana to get real coverage of fis's Go analysis path (sentry and home-assistant are both Python-only on the backend) alongside a large TS frontend. Long multi-contributor history, huge codebase, deployed in production observability stacks industry-wide."
+    }
+  ]
+}

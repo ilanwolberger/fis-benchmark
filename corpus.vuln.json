@@ -1,0 +1,19 @@
+{
+  "mode": "vuln",
+  "description": "Recall corpus for the FIS Benchmark. Intentionally-vulnerable, publicly-documented training apps (OWASP & friends). These SHOULD audit RED — the right verdict is high_risk or not_safe and the right critical-finding count is > 0. A known-vulnerable app that FIS verdicts green (production_ready / ready_with_conditions) is a MISS (recall gap). Detection rate = fraction verdicted not-green.",
+  "removed_entry_note": "bkimminich/juice-shop-ctf was removed after the first run — it is a CTF helper tool that generates challenges, NOT a vulnerable app, so FIS correctly passing it was a corpus-labeling error, not a recall miss. On the 11 genuinely-vulnerable apps, detection was 100% (run 2026-06-30, mean 3.17 criticals/app).",
+  "metric": "detection_rate = repos verdicted high_risk|not_safe / total. miss = a known-vuln app verdicted green. Also track mean critical findings per app.",
+  "repos": [
+    { "repo": "OWASP/NodeGoat",                "lang": "js",   "note": "OWASP Top-10 training app (Node/Express) — injection, broken auth, etc." },
+    { "repo": "appsecco/dvna",                  "lang": "js",   "note": "Damn Vulnerable NodeJS Application — full OWASP Top-10 set" },
+    { "repo": "snoopysecurity/dvws-node",       "lang": "js",   "note": "Damn Vulnerable Web Services (Node) — API vulns" },
+    { "repo": "juice-shop/juice-shop",          "lang": "ts",   "note": "OWASP Juice Shop — the canonical vulnerable web app" },
+    { "repo": "OWASP/railsgoat",                "lang": "ruby", "note": "OWASP RailsGoat — vulnerable Rails app" },
+    { "repo": "nVisium/django.nV",              "lang": "py",   "note": "Vulnerable Django app (nVisium) — OWASP training" },
+    { "repo": "anxolerd/dvpwa",                 "lang": "py",   "note": "Damn Vulnerable Python Web App — SQLi/XSS/CSRF" },
+    { "repo": "payatu/Tiredful-API",            "lang": "py",   "note": "Intentionally broken REST API (Django) — API security training" },
+    { "repo": "stamparm/DSVW",                  "lang": "py",   "note": "Damn Small Vulnerable Web — single-file, dozens of classic vulns" },
+    { "repo": "digininja/DVWA",                 "lang": "php",  "note": "Damn Vulnerable Web Application — SQLi/XSS/command-injection" },
+    { "repo": "OWASP/Vulnerable-Web-Application","lang": "php", "note": "OWASP vulnerable web application" }
+  ]
+}

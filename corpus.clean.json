@@ -1,0 +1,31 @@
+{
+  "description": "Clean-repo corpus for the FIS False Critical Rate (FCR) benchmark. These are mature, widely-used, security-reviewed open-source libraries that should audit GREEN. Any Critical finding FIS raises here with zero corroboration (no committed secret, no OSV dep-CVE) is a FALSE Critical. Biased toward minimal-dependency libraries so the deterministic dep-CVE guardrail does not legitimately fire, isolating the model's own over-rating behaviour.",
+  "metric": "On this corpus the ideal verdict is production_ready or ready_with_conditions, and the ideal critical-finding count is 0. FCR (finding-level) = pure-model critical findings (severity=critical, repo has secretHits=0 AND vulnerableDeps=0) across the corpus. False-alarm rate (verdict-level) = fraction of repos with verdict high_risk|not_safe and zero corroboration.",
+  "repos": [
+    { "repo": "lodash/lodash",            "lang": "js",   "minimal_dep": true,  "note": "zero-dep utility lib, ubiquitous" },
+    { "repo": "sindresorhus/ky",          "lang": "js",   "minimal_dep": true,  "note": "zero-dep fetch wrapper" },
+    { "repo": "sindresorhus/p-limit",     "lang": "js",   "minimal_dep": true,  "note": "zero-dep concurrency limiter" },
+    { "repo": "colinhacks/zod",           "lang": "ts",   "minimal_dep": true,  "note": "zero-dep schema validation" },
+    { "repo": "ai/nanoid",                "lang": "js",   "minimal_dep": true,  "note": "zero-dep id generator, security-conscious" },
+    { "repo": "nodeca/js-yaml",           "lang": "js",   "minimal_dep": true,  "note": "mature YAML parser" },
+    { "repo": "chalk/chalk",              "lang": "js",   "minimal_dep": true,  "note": "near-zero-dep terminal styling" },
+    { "repo": "date-fns/date-fns",        "lang": "js",   "minimal_dep": true,  "note": "zero-dep date utilities" },
+    { "repo": "debug-js/debug",           "lang": "js",   "minimal_dep": true,  "note": "small mature logging lib" },
+    { "repo": "micromatch/picomatch",     "lang": "js",   "minimal_dep": true,  "note": "zero-dep glob matcher" },
+    { "repo": "expressjs/cors",           "lang": "js",   "minimal_dep": true,  "note": "small mature CORS middleware" },
+    { "repo": "pallets/flask",            "lang": "py",   "minimal_dep": false, "note": "mature, heavily audited web framework" },
+    { "repo": "psf/requests",             "lang": "py",   "minimal_dep": false, "note": "mature, heavily audited HTTP client" },
+    { "repo": "pallets/click",            "lang": "py",   "minimal_dep": true,  "note": "mature CLI framework" },
+    { "repo": "pallets/jinja",            "lang": "py",   "minimal_dep": true,  "note": "mature templating engine, security-aware" },
+    { "repo": "python-attrs/attrs",       "lang": "py",   "minimal_dep": true,  "note": "zero-dep class boilerplate lib" },
+    { "repo": "gin-gonic/gin",            "lang": "go",   "minimal_dep": false, "note": "mature web framework" },
+    { "repo": "gorilla/mux",              "lang": "go",   "minimal_dep": true,  "note": "mature HTTP router" },
+    { "repo": "spf13/cobra",              "lang": "go",   "minimal_dep": false, "note": "mature CLI framework" },
+    { "repo": "stretchr/testify",         "lang": "go",   "minimal_dep": false, "note": "mature test toolkit" },
+    { "repo": "serde-rs/serde",           "lang": "rust", "minimal_dep": true,  "note": "mature serialization framework" },
+    { "repo": "clap-rs/clap",             "lang": "rust", "minimal_dep": false, "note": "mature CLI parser" },
+    { "repo": "BurntSushi/ripgrep",       "lang": "rust", "minimal_dep": false, "note": "mature, performance/security-reviewed CLI" },
+    { "repo": "sindresorhus/slugify",     "lang": "js",   "minimal_dep": true,  "note": "small zero-runtime-dep string lib" },
+    { "repo": "jashkenas/underscore",     "lang": "js",   "minimal_dep": true,  "note": "zero-dep utility lib" }
+  ]
+}
