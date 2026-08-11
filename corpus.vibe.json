@@ -1,0 +1,108 @@
+{
+  "mode": "field",
+  "description": "Self-declared AI-built application corpus -- fis's ACTUAL TARGET CLASS. Every other corpus in this benchmark (corpus.clean.json, corpus.app.json, corpus.vuln.json, corpus.messy.json) is mature, professionally-maintained open-source software; none of them are the young, AI-scaffolded, often-first-time-builder applications fis is marketed to audit. This corpus fills that gap with 10 repositories whose own README/description SELF-DECLARES AI-tool authorship (Lovable, v0.dev, Claude Code, Bolt.new, or a generic 'vibe coded' claim) -- application-shaped real code (all >30 files, none are libraries, awesome-lists, or prompt/template collections), created within roughly the last 18 months.",
+  "ground_truth_caveat": "There is NO vulnerability ground truth here and NO expectation of a particular verdict -- this is explicitly field mode, the same no-label semantics as corpus.messy.json. 'Self-declared AI-built' is an AUTHORSHIP label sourced from each repo's own README/badge/description, not a security label. Do not compute or cite an FCR, a recall rate, or a miss/catch count against this corpus -- those metrics require a known-clean or known-vulnerable label, which this corpus does not have and does not claim to have. What this corpus DOES support: (1) qualitative field-behavior reads (are verdicts, scores, and findings proportionate on genuinely AI-scaffolded code, the way corpus.messy.json checks proportionality on large accreted legacy code), and (2) validation of the ai_generated_likelihood signal specifically, since every entry carries an independent, out-of-band authorship label (the tool's own badge/README claim) that the model's ai_generated_likelihood score can be checked against without fis having produced the label itself.",
+  "selection_criteria": "Each entry: (1) self-declares AI-tool authorship in its own README, description, or topics -- the exact quoted evidence is recorded per entry below; (2) is application-shaped -- a runnable app with real code, not a library/framework/CLI tool (that is corpus.clean.json's job) and not an awesome-list/prompt-collection/meta-tooling repo (excluded a large number of these during search -- topics like `lovable`/`vibe-coding`/`bolt.new` return mostly curated-list and AI-tool-building-tool repos, which were filtered out); (3) has more than 30 files in its git tree (verified live via the GitHub trees API, recorded per entry); (4) was created within roughly the last 18 months (verified live via the GitHub repos API); (5) is publicly fetchable, not a fork, not archived (verified live via the GitHub repos API, 2026-08-11); (6) does not appear in corpus.clean.json, corpus.app.json, corpus.vuln.json, or corpus.messy.json (checked against all four). Language skew toward TypeScript/JavaScript is expected and disclosed, not curated away -- it reflects what Lovable, v0.dev, and Bolt.new actually emit (React/Next.js scaffolds), not a selection choice.",
+  "repos": [
+    {
+      "repo": "aggwrk/nihongo-blocks",
+      "lang": "ts",
+      "note": "Japanese-learning flashcard/block app",
+      "declared_tool": "lovable",
+      "declaration_evidence": "README: 'Welcome to your Lovable project' + '**URL**: https://lovable.dev/projects/26a7ca1b-bffc-42b3-9fbd-fc72ca62757b' -- the boilerplate Lovable auto-commits when a project syncs to GitHub",
+      "stars": 98,
+      "created_at": "2025-05-24",
+      "files": 121
+    },
+    {
+      "repo": "kingsidharth/vocal-note-keeper-ai",
+      "lang": "ts",
+      "note": "browser-local voice note-taking/transcription app",
+      "declared_tool": "lovable",
+      "declaration_evidence": "README: '## Project info **URL**: https://lovable.dev/projects/be719897-a705-49ae-af8a-a150e9a2e7cf' (live app at vocal-note-keeper-ai.lovable.app)",
+      "stars": 43,
+      "created_at": "2025-06-26",
+      "files": 107
+    },
+    {
+      "repo": "Sathyamoorthy17/master-quiz-nexus",
+      "lang": "ts",
+      "note": "quiz-building web app",
+      "declared_tool": "lovable",
+      "declaration_evidence": "README: 'Welcome to your Lovable project' + '**URL**: https://lovable.dev/projects/48908dc5-be31-4bd0-a960-e9a81784f4a0'",
+      "stars": 56,
+      "created_at": "2025-10-07",
+      "files": 87
+    },
+    {
+      "repo": "R44VC0RP/agenda.dev",
+      "lang": "ts",
+      "note": "'Todo Exon' -- real-time todo/task app with auth, analytics, and feedback integrations; the most substantial/highest-traction entry in this corpus",
+      "declared_tool": "v0.dev",
+      "declaration_evidence": "README 'Acknowledgments' section: 'Built with [v0.dev](https://v0.dev)'",
+      "stars": 301,
+      "created_at": "2025-04-21",
+      "files": 186
+    },
+    {
+      "repo": "jiangyan/v0-financial-report-web-app",
+      "lang": "ts",
+      "note": "stock financial-statement extraction/visualization web app (converts a Python scraping script into a web UI)",
+      "declared_tool": "v0.dev",
+      "declaration_evidence": "README is literally titled '# prompt for v0.app' followed by the exact natural-language prompt used to generate the app -- the most explicit generation-provenance evidence in the corpus",
+      "stars": 10,
+      "created_at": "2025-12-11",
+      "files": 40
+    },
+    {
+      "repo": "sandydargoport/prism",
+      "lang": "ts",
+      "note": "self-hosted family dashboard (calendar/tasks/groceries integrations); largest entry in this corpus by file count, with CI, E2E tests, and a security policy already in place",
+      "declared_tool": "claude-code",
+      "declaration_evidence": "README, author's own words: 'I'm not a software developer, but I work in a technical field... This project was built entirely with [Claude Code](https://claude.ai/code) -- I directed requirements, design, and product decisions; Claude Code handled the implementation.' -- the clearest first-person non-developer-authorship statement in the corpus, exactly the profile fis markets to",
+      "stars": 81,
+      "created_at": "2026-02-08",
+      "files": 1122
+    },
+    {
+      "repo": "MountainsCalling-me/property-dashboard",
+      "lang": "js",
+      "note": "automated real-estate listing search/CRM dashboard (Cloudflare Workers + D1, pulls from a listings API)",
+      "declared_tool": "claude-code",
+      "declaration_evidence": "README: '**Built entirely with [Claude Code](https://docs.anthropic.com/en/docs/claude-code)** (Anthropic's CLI agent). The CLAUDE.md file and docs/spec.md are the actual instructions Claude worked from -- left in the repo so you can see how the project was scoped and iterated on.'",
+      "stars": 34,
+      "created_at": "2026-06-16",
+      "files": 43
+    },
+    {
+      "repo": "shayan-shojaei/open-tutor",
+      "lang": "ts",
+      "note": "self-hosted interactive learning environment (courses, flashcards, quizzes)",
+      "declared_tool": "claude-code",
+      "declaration_evidence": "README: 'Built entirely with [Claude Code](https://claude.ai/code).'",
+      "stars": 31,
+      "created_at": "2026-05-31",
+      "files": 143
+    },
+    {
+      "repo": "maciej-trebacz/tower-of-time-game",
+      "lang": "ts",
+      "note": "time-rewind tower-defense browser game made for a game jam (Beginner's Jam Summer 2025); an application in the game-not-web-CRUD sense, included deliberately for shape diversity",
+      "declared_tool": "vibe-coded (unspecified/generic)",
+      "declaration_evidence": "Repo description (GitHub API `description` field): 'Vibe coded Tower Defense type of game made for a game jam' -- a generic self-declaration rather than a named tool, included because the task explicitly names bare 'vibe coded' as a qualifying declaration",
+      "stars": 370,
+      "created_at": "2025-07-04",
+      "files": 106
+    },
+    {
+      "repo": "0-x-joseph/freelanceros",
+      "lang": "ts",
+      "note": "'FreelancerOS' -- freelance business management platform (proposals, project tracking, client portals, time tracking) built for a hackathon",
+      "declared_tool": "bolt.new",
+      "declaration_evidence": "README badge '[![Built with Bolt.new]' plus body text: 'Built entirely with Bolt.new for the World's Largest Hackathon 2025.' and Tech Stack table line 'Development: Bolt.new'",
+      "stars": 3,
+      "created_at": "2025-06-27",
+      "files": 149
+    }
+  ]
+}
