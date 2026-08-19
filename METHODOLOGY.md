@@ -71,6 +71,29 @@ Source file: [`corpus.heldout.json`](corpus.heldout.json) (n=9). **This corpus e
 
 The set also deliberately closes selection-bias gaps disclosed above: it adds **security-primitive / crypto libraries** (a JOSE/JWT library, a widely-used general-purpose cryptography library, a Go JWT implementation) the original 25 had none of, adds **non-minimal-dependency** libraries (an async HTTP client, a web framework, an async runtime, an HTTP implementation, a Go web framework), and caps **JS/TS at 2 of 9 (22%)** against the original's 52%, across nine unrelated maintainer organizations with zero overlap with the clusters already in the clean corpus.
 
+> **2026-08-19 — the outstanding manifest-level re-verification was run.** `osv-scanner` 2.5.1,
+> `scan source -r`, over a fresh clone of all nine. An independent tool on purpose: verifying this
+> predicate with NittiM's own dependency scanner would be the scanner grading its own corpus.
+> **Result: 3 pass · 2 fail · 4 not evaluable.**
+>
+> 1. **`encode/httpx` fails, as already disclosed** — 6 CRITICAL/HIGH advisories reachable from its
+>    pinned tooling requirements.
+> 2. **`pyca/cryptography` also fails, which was NOT previously disclosed** — 2 HIGH advisories via a
+>    pin in its CI constraints file. It is one of the three *secret-scanner* not-greens, so this does
+>    not excuse that false positive, but a second entry does not satisfy the admission predicate.
+> 3. **The predicate is not evaluable for 4 of 9** — `expressjs/express`, `hyperium/hyper`,
+>    `rust-lang/regex` and `tokio-rs/tokio` commit no lockfile, so a manifest-level CVE check has
+>    nothing resolved to read. That is a defect in the predicate, not in the repos: libraries
+>    deliberately do not commit lockfiles. C4 needs restating — manifest-level where a lockfile
+>    exists, explicitly N/A where none does — rather than being treated as quietly satisfied.
+>
+> The corpus therefore does not meet its own C4 for at least two of nine and cannot be shown to meet
+> it for four more. **This does not exonerate the dependency scanner**: the `encode/httpx` not-green
+> was already traced to a dev/runtime misclassification, a real defect recorded below. Both hold at
+> once. What the re-verification adds is only that the advisories themselves were real — the error
+> was which dependency set they were attributed to. **Untouched:** this is a dependency predicate, so
+> the 33.3% secret-scanner rate and the 0% pure-model rate stand exactly as measured.
+
 > **Read the comparison honestly in both directions.** This corpus is *harder by construction* — it was loaded with precisely the conditions the original disclosure named as untested, so 55.6% here is not a like-for-like regression against the original 25's 100%. But that cuts the other way too: those conditions were named as untested because they are where a false positive was *expected*, and the expectation was correct. A precision fix that holds only on the code shapes it was written against is exactly what "in-sample" means.
 
 #### Result — deep tier (Opus) and free tier, same 9 repos
