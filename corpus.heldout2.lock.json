@@ -1,0 +1,55 @@
+{
+  "corpus": "corpus.heldout2",
+  "frozen": "2026-08-19",
+  "purpose": "Pre-registration. Published to a dated public tag BEFORE the first run so the repo list and the exact commits are independently timestamped \u2014 closing the 'no timestamped pre-registration' caveat that has stood open since v0.",
+  "repos": [
+    {
+      "repo": "tj/commander.js",
+      "commit": "ba6d13ddb4243e5913367734f8c159089ffe7834"
+    },
+    {
+      "repo": "postcss/postcss",
+      "commit": "d40227b4a10d04c0075acf7912343f1787deacb4"
+    },
+    {
+      "repo": "sinclairzx81/typebox",
+      "commit": "8f8d861ba204a21ca067b28db10e3d1dc19bd732"
+    },
+    {
+      "repo": "celery/celery",
+      "commit": "2c42237d375718a84f01f3a7b4eb12a85e061e37"
+    },
+    {
+      "repo": "google/python-fire",
+      "commit": "716bbc23d7eca949fdb682172283c8d18f742cb6"
+    },
+    {
+      "repo": "mahmoud/boltons",
+      "commit": "967864f89791509f9eb36b22b4579d36b72a6df2"
+    },
+    {
+      "repo": "sirupsen/logrus",
+      "commit": "8b673a9eb3a8c1b130907b9677f8d431c9ab1ae7"
+    },
+    {
+      "repo": "nsqio/nsq",
+      "commit": "85cf10c09c6c3c86160d6f0eb156f62d0efc1648"
+    },
+    {
+      "repo": "dgraph-io/ristretto",
+      "commit": "67cb59139a2f93fab17e7f199a5c5b3dbc7850db"
+    },
+    {
+      "repo": "sharkdp/hyperfine",
+      "commit": "f12f3d9f86f3643b3b7deace5e160b1f0f44d2b7"
+    },
+    {
+      "repo": "tree-sitter/tree-sitter",
+      "commit": "f235c2f1c39901dc23eb08f35040386250411078"
+    },
+    {
+      "repo": "dtolnay/cxx",
+      "commit": "986a6dd98a4788a822897ee20e70e843420f721d"
+    }
+  ]
+}

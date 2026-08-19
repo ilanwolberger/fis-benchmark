@@ -1,0 +1,151 @@
+{
+  "mode": "clean",
+  "name": "corpus.heldout2",
+  "frozen": "2026-08-19",
+  "description": "SECOND held-out generalization corpus. corpus.heldout.json is BURNED \u2014 four precision rules were written against the four failures it produced, so re-scoring it is in-sample and cannot measure generalization. This set was selected on 2026-08-19 from PUBLIC METADATA ONLY (stars, age, activity, language, size, description); NittiM's scanners were NOT run against any candidate before freezing, and no repo was included or excluded on the basis of what NittiM does to it.",
+  "metric": "Ideal verdict is production_ready or ready_with_conditions; ideal critical-finding count is 0. Free-tier secret-scanner FCR = repos whose only hard evidence is a committed-secret hit.",
+  "predicates": {
+    "C1": "stars >= 1000 \u2014 satisfied, range 6,803\u201328,981",
+    "C2": "first public release >= 4 years before construction \u2014 all created before 2022-08-19",
+    "C3": "last commit within 12 months \u2014 all pushed after 2025-11-19",
+    "C4": "RESTATED 2026-08-19. Original wording ('zero open critical/high CVEs via osv-scanner over each manifest') is not evaluable for libraries that ship no lockfile \u2014 which is most libraries \u2014 and it conflates dev tooling with shipped risk. Restated: no open CRITICAL/HIGH advisory in the RUNTIME dependency set, at the pinned lockfile where one exists; 'n/a_no_lockfile' recorded explicitly where none exists; 'dev_only_advisory' recorded where advisories are confined to dev/test/tooling manifests. A dev-only advisory does NOT fail admission, deliberately: it cannot be a true production risk, so it cannot cause the true-positive/false-positive conflation C4 exists to prevent \u2014 and it is the exact condition that exposed the encode/httpx dev-vs-runtime misclassification in heldout1. Excluding those repos would hide the defect class.",
+    "C5": "RESTATED 2026-08-19. Original required NittiM's own scanner AND Gitleaks to report zero secrets. As an ADMISSION FILTER that is circular: it excludes every repo NittiM false-positives on, which is the population an FCR benchmark measures, making the result 0% by construction. Restated: ground truth is established INDEPENDENTLY (Gitleaks 8.30.1 plus manual adjudication of every hit); NittiM's output is the MEASUREMENT and never the gate. Two repos carry adjudicated non-secret hits and were deliberately KEPT.",
+    "C6": "library, framework, or CLI \u2014 no web applications",
+    "C7": "language in {JavaScript, TypeScript, Python, Go, Rust}"
+  },
+  "composition": {
+    "n": 12,
+    "distinct_orgs": 12,
+    "js_ts_share": "25%",
+    "star_bands": "6.8k\u201329k, deliberately spread \u2014 a first pass drew entirely from 23\u201330k, which would sample only the most-reviewed code and understate FCR",
+    "overlap_with_prior_corpora": "none \u2014 checked against all 88 repos across every existing corpus"
+  },
+  "disclosed_exclusions": [
+    "gitleaks/gitleaks and trufflesecurity/trufflehog qualify on every predicate and were EXCLUDED. Their repositories are built of deliberate credential-shaped fixtures, so including them would near-guarantee secret-scanner false positives \u2014 stacking the deck rather than measuring. Recorded here because excluding them silently would be cherry-picking in NittiM's favour.",
+    "pallets/*, sindresorhus/*, tokio-rs/* candidates were skipped: those clusters are already named concentration biases or appear in the burned corpus."
+  ],
+  "repos": [
+    {
+      "repo": "tj/commander.js",
+      "lang": "js",
+      "stars": 28365,
+      "minimal_dep": true,
+      "note": "CLI argument parser. ZERO runtime dependencies \u2014 all lockfile advisories are dev-only.",
+      "commit": "ba6d13ddb4243e5913367734f8c159089ffe7834",
+      "c4_runtime_cve": "dev_only_advisory",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "postcss/postcss",
+      "lang": "ts",
+      "stars": 28981,
+      "minimal_dep": false,
+      "note": "CSS transformation library with a large plugin ecosystem.",
+      "commit": "d40227b4a10d04c0075acf7912343f1787deacb4",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "sinclairzx81/typebox",
+      "lang": "ts",
+      "stars": 6918,
+      "minimal_dep": true,
+      "note": "JSON Schema type builder. Mid star-band.",
+      "commit": "8f8d861ba204a21ca067b28db10e3d1dc19bd732",
+      "c4_runtime_cve": "n/a_no_lockfile",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "celery/celery",
+      "lang": "py",
+      "stars": 28793,
+      "minimal_dep": false,
+      "note": "Distributed task queue. Non-minimal dependency tree.",
+      "commit": "2c42237d375718a84f01f3a7b4eb12a85e061e37",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 9,
+      "c5_adjudication": "9 Gitleaks hits, ALL adjudicated non-secret: 5 PEM blobs in t/unit/security/__init__.py and examples/security/ssl/ (test fixtures + an example), 2 hits on Microsoft's PUBLISHED Azurite storage-emulator default account key, 1 on the config NAME key='CELERY_HARNESS_CFG1'. No real committed production credential."
+    },
+    {
+      "repo": "google/python-fire",
+      "lang": "py",
+      "stars": 28206,
+      "minimal_dep": true,
+      "note": "CLI generator from arbitrary Python objects.",
+      "commit": "716bbc23d7eca949fdb682172283c8d18f742cb6",
+      "c4_runtime_cve": "n/a_no_lockfile",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "mahmoud/boltons",
+      "lang": "py",
+      "stars": 6917,
+      "minimal_dep": true,
+      "note": "Stdlib-style utility collection. Mid star-band.",
+      "commit": "967864f89791509f9eb36b22b4579d36b72a6df2",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "sirupsen/logrus",
+      "lang": "go",
+      "stars": 25751,
+      "minimal_dep": true,
+      "note": "Structured logging library.",
+      "commit": "8b673a9eb3a8c1b130907b9677f8d431c9ab1ae7",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "nsqio/nsq",
+      "lang": "go",
+      "stars": 25770,
+      "minimal_dep": false,
+      "note": "Distributed messaging platform. Non-minimal; advisories confined to bench/requirements.txt (Python benchmark tooling in a Go project).",
+      "commit": "85cf10c09c6c3c86160d6f0eb156f62d0efc1648",
+      "c4_runtime_cve": "dev_only_advisory",
+      "c5_gitleaks_findings": 8,
+      "c5_adjudication": "8 Gitleaks hits, ALL adjudicated non-secret: test TLS material under nsqadmin/test/ and nsqd/test/certs/. No real committed production credential."
+    },
+    {
+      "repo": "dgraph-io/ristretto",
+      "lang": "go",
+      "stars": 6976,
+      "minimal_dep": true,
+      "note": "Memory-bound cache library. Mid star-band.",
+      "commit": "67cb59139a2f93fab17e7f199a5c5b3dbc7850db",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "sharkdp/hyperfine",
+      "lang": "rust",
+      "stars": 28678,
+      "minimal_dep": true,
+      "note": "CLI benchmarking tool.",
+      "commit": "f12f3d9f86f3643b3b7deace5e160b1f0f44d2b7",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "tree-sitter/tree-sitter",
+      "lang": "rust",
+      "stars": 26691,
+      "minimal_dep": false,
+      "note": "Incremental parsing library. Lockfile advisories are tooling-only (no root manifest).",
+      "commit": "f235c2f1c39901dc23eb08f35040386250411078",
+      "c4_runtime_cve": "dev_only_advisory",
+      "c5_gitleaks_findings": 0
+    },
+    {
+      "repo": "dtolnay/cxx",
+      "lang": "rust",
+      "stars": 6803,
+      "minimal_dep": true,
+      "note": "Rust/C++ FFI interop. Mid star-band.",
+      "commit": "986a6dd98a4788a822897ee20e70e843420f721d",
+      "c4_runtime_cve": "pass",
+      "c5_gitleaks_findings": 0
+    }
+  ]
+}
