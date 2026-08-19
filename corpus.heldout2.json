@@ -103,9 +103,10 @@
       "minimal_dep": false,
       "note": "Distributed messaging platform. Non-minimal; advisories confined to bench/requirements.txt (Python benchmark tooling in a Go project).",
       "commit": "85cf10c09c6c3c86160d6f0eb156f62d0efc1648",
-      "c4_runtime_cve": "dev_only_advisory",
+      "c4_runtime_cve": "FAIL_runtime_advisory",
       "c5_gitleaks_findings": 8,
-      "c5_adjudication": "8 Gitleaks hits, ALL adjudicated non-secret: test TLS material under nsqadmin/test/ and nsqd/test/certs/. No real committed production credential."
+      "c5_adjudication": "8 Gitleaks hits, ALL adjudicated non-secret: test TLS material under nsqadmin/test/ and nsqd/test/certs/. No real committed production credential.",
+      "c4_correction_2026-08-19": "Annotated 'dev_only_advisory' at freeze time. That was MY error, corrected after the first run and disclosed rather than quietly amended. moment 2.29.1 (2 HIGH) sits in nsqadmin/package.json under `dependencies`, NOT devDependencies, and nsqadmin ships a bundled browser UI \u2014 so it is a genuine production dependency and nsq genuinely violates restated C4. Consequence: nsq's not-green is a TRUE POSITIVE, not a false alarm, and the FCR denominator is reported both ways (1/12 and 1/11). The frozen repo list and commit SHAs are unchanged, so the pre-registration is unaffected."
     },
     {
       "repo": "dgraph-io/ristretto",

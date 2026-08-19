@@ -487,3 +487,41 @@ Everything in this table is deferred on **API cost alone**, not on doubt about i
 
 _One measurement-hygiene note carried over from the internal record: the benchmark runner records duration but not per-audit token or cost fields, so spend attribution is currently read from the API provider's usage console rather than run artifacts. Fixing that (cost on the result row) is itself an outstanding item._
 
+
+### Held-out validation, round 2 — `corpus.heldout2` (n=12), first run 2026-08-19
+
+Pre-registered at tag `corpus-heldout2-frozen-2026-08-19` **before this run** (resolved SHA per entry
+in `corpus.heldout2.lock.json`), and executed against those pinned commits rather than whatever the
+default branches held that day.
+
+| Metric | heldout2 (n=12) | heldout1 (n=9, pre-fix) |
+|---|---|---|
+| **Free-tier secret-scanner false-critical rate** | **8.3%** (1/12) · 95% CI 0.2%–38.5% | 33.3% (3/9) · CI 7.5%–70.1% |
+| Same, excluding the one C4-violating repo | 9.1% (1/11) · CI 0.2%–41.3% | — |
+| Real runtime-CVE catch (true positive) | 1 — `nsqio/nsq` | 0 |
+| Repos completed / errored | 12 / 0 | 9 / 0 |
+
+> **The point estimate improved four-fold and the sample cannot establish that it did.** The two
+> confidence intervals overlap across almost their whole range: 0.2–38.5% against 7.5–70.1%. At n=12
+> with a single failure, "8.3%" and "33.3%" are not statistically distinguishable. The honest claim is
+> that the fixes **did not fail** on fresh code, not that they measurably improved.
+
+**The one failure is the same defect class as last time, and that is the real result.** Every one of
+`celery/celery`'s 8 verdict-forcing hits sits under `t/unit/` — five MongoDB connection strings in
+`t/unit/backends/test_mongodb.py`, three PEM blocks in `t/unit/security/__init__.py`. Celery roots its
+tests at `t/`, a convention the non-production path vocabulary has not seen. That is precisely the
+"naming-vocabulary gap" heldout1 produced with `cookbook`, `tap` and `_fixture` — and precisely what
+this document predicted when those rules were written: *"the next held-out set will find the next
+spelling."* It did. **Do not fix this against this corpus**: patching `t/` would burn `heldout2` the
+way `heldout1` was burned, and buy one spelling.
+
+**`nsqio/nsq` is a TRUE positive, and my C4 annotation of it was wrong.** At freeze time I recorded it
+`dev_only_advisory`, reasoning that a Go project's `requirements.txt` and `package-lock.json` are
+tooling. `moment` 2.29.1 (2× HIGH) is in `nsqadmin/package.json` under `dependencies`, and nsqadmin
+ships a bundled browser UI — so it is a real production dependency and nsq genuinely violates restated
+C4. The scanner was right and the corpus annotation was wrong; the FCR is therefore reported both with
+and without it. The frozen repo list and SHAs are unchanged, so the pre-registration stands.
+
+**What this run does NOT establish.** n=12 is small, the corpus is libraries only (C6), and one run at
+one commit per repo is a point estimate. `corpus.heldout2` is **not** burned by this run — nothing was
+tuned against it — so it can be re-run after any future precision change, once, and then it is spent.
